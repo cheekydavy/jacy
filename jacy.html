@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Dedication to Jacy</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: black; /* Set the background color to black */
+            color: white; /* Set default text color to white */
+        }
+        .menu-icon {
+            cursor: pointer;
+            padding: 15px;
+            background-color: #00FF00; /* Luminous green color */
+            border: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            color: black; /* Text color for the menu icon */
+            font-size: 1.5em;
+        }
+        .menu {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 60px;
+            left: 10px;
+            background-color: rgba(0, 255, 0, 0.8); /* Luminous green menu */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: black; /* Text color for menu items */
+        }
+        .menu-item:hover {
+            background-color: rgba(255, 255, 0, 0.7); /* Yellow highlighter on hover */
+        }
+        .section {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            font-size: 2em; /* Font size for text */
+        }
+        .text {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease; /* Transition for fade effect */
+            font-size: 1.5em; /* Smaller font size for the texts */
+        }
+        .move {
+            animation: moveText 2s forwards; /* Move animation */
+        }
+        @keyframes moveText {
+            0%   { transform: translate(0, 0); }
+            25%  { transform: translate(-50px, -30px); }
+            50%  { transform: translate(50px, -20px); }
+            75%  { transform: translate(-30px, 40px); }
+            100% { transform: translate(30px, 10px); }
+        }
+        .section1, .section2, .section3, .section4 {
+            background-image:url("jacy.jpg") /* Set each section background to black */
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+    <div class="menu" id="menu">
+        <div class="menu-item" onclick="scrollToSection('section1')">Love Notes</div>
+        <div class="menu-item" onclick="scrollToSection('section2')">Our Moments</div>
+        <div class="menu-item" onclick="scrollToSection('section3')">Dreams Together</div>
+        <div class="menu-item" onclick="scrollToSection('section4')">Forever Us</div>
+    </div>
+
+    <div id="section1" class="section">
+        <div class="text" id="text1"></div>
+        <div class="text" id="text2"></div>
+        <div class="text" id="text3"></div>
+        <div class="text" id="text4"></div>
+    </div>
+    <div id="section2" class="section">
+        <div class="text" id="text5"></div>
+        <div class="text" id="text6"></div>
+        <div class="text" id="text7"></div>
+        <div class="text" id="text8"></div>
+    </div>
+    <div id="section3" class="section">
+        <div class="text" id="text9"></div>
+        <div class="text" id="text10"></div>
+        <div class="text" id="text11"></div>
+        <div class="text" id="text12"></div>
+    </div>
+    <div id="section4" class="section">
+        <div class="text" id="text13"></div>
+        <div class="text" id="text14"></div>
+        <div class="text" id="text15"></div>
+        <div class="text" id="text16"></div>
+    </div>
+
+    <script>
+        const loveTexts = {
+            section1: [
+                "I love you, Jacy! You are the light of my life.",
+                "You make my heart smile every day.",
+                "With you, every moment is magical.",
+                "My heart is forever yours."
+            ],
+            section2: [
+                "Thank you for every beautiful moment we share.",
+                "You fill my life with joy and laughter.",
+                "Every memory with you is a treasure.",
+                "Together, we create our own little paradise."
+            ],
+            section3: [
+                "With you, I can conquer the world.",
+                "You are my greatest adventure!",
+                "Our dreams together are always within reach.",
+                "With you, anything is possible."
+            ],
+            section4: [
+                "Forever is just a word; with you, it’s my reality!",
+                "You are my sweetest promise.",
+                "Your love gives me strength.",
+                "Together, we thrive in love."
+            ]
+        };
+
+        function showLoveTexts(section) {
+            const texts = loveTexts[section];
+            const textElements = document.querySelectorAll(`#${section} .text`);
+
+            let textIndex = 0;
+
+            function displayText() {
+                // Hide all texts first
+                textElements.forEach(element => {
+                    element.style.opacity = 0; // Fade out before moving
+                });
+
+                // After fade out, show and move next text
+                setTimeout(() => {
+                    textElements[textIndex].textContent = texts[textIndex]; // Set the content
+                    textElements[textIndex].classList.add('move'); // Add moving class
+                    textElements[textIndex].style.opacity = 1; // Fade in
+
+                    setTimeout(() => {
+                        textElements[textIndex].classList.remove('move'); // Remove class after movement
+                    }, 2000); // Wait for the animation to finish
+
+                    textIndex++;
+
+                    if (textIndex < texts.length) {
+                        // Show next text after 3 seconds
+                        setTimeout(displayText, 3000); // Text display duration
+                    }
+                }, 500); // Time for fade out to complete before showing next text
+            }
+
+            // Start displaying texts
+            displayText();
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+            showLoveTexts(sectionId); // Show love texts when section is clicked
+            toggleMenu(); // Close the menu after selection
+        }
+    </script>
+</body>
+</html>
